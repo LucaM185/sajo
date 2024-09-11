@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Responsive Image Layout</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+    <link href="https://fonts.cdnfonts.com/css/stretch-pro" rel="stylesheet">
+
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            font-family: sans-serif;
+        }
+
+        .image-container {
+            width: 100%;
+        }
+
+        .image-container img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .split-images, .three-images {
+            display: flex;
+            width: 100%;
+            justify-content: space-around;
+        }
+
+        .split-images img {
+            width: 50%;
+            height: auto;
+        }
+
+        .three-images img {
+            width: 33.33%;
+            height: auto;
+        }
+
+        .image-container, .split-images, .three-images {
+            margin-bottom: 0;
+        }
+
+        /* Menu Icon and Name */
+        .menu-container {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            display: flex;
+            align-items: center;
+            z-index: 1000;
+            background: #fff; /* Background to ensure visibility */
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer; /* Make the whole div clickable */
+            font-family: 'Stretch Pro';
+        }
+
+        .menu-icon {
+            font-size: 36px;
+            margin-right: 15px;
+            color: #333;
+        }
+
+        .menu-name {
+            font-size: 24px;
+            color: #333;
+            font-weight: 700;
+        }
+        .menu-end {
+            font-size: 24px;
+            color: #333;
+            font-weight: 700;
+        }
+        
+        /* Sidebar Styles */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -390px; /* Adjusted to fully hide sidebar at 350px */
+            width: 335px; /* Sidebar width */
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            color: #fff;
+            padding: 60px 20px 20px;
+            transition: left 0.3s ease;
+            z-index: 999;
+            overflow-y: auto;
+        }
+
+        .sidebar.open {
+            left: 0;
+        }
+
+        .sidebar h2 {
+            margin-top: 0;
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .sidebar a {
+            color: #fff;
+            text-decoration: none;
+            display: block;
+            margin: 5px 0;
+        }
+
+        .sidebar a:hover {
+            text-decoration: underline;
+        }
+
+        .sidebar .bio {
+            margin-bottom: 20px;
+            font-size: 16px;
+        }
+
+        @media(orientation: landscape) {
+        }
+
+        @media (orientation: portrait) {
+            .menu-end {
+                display: none;
+            }
+            .menu-name {
+                display: none;
+            }
+            .menu-icon {
+                margin-right: 0;
+            }
+            .sidebar {
+                width: 200px; 
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Menu Icon and Name -->
+    <div class="menu-container" id="menuContainer">
+        <span class="material-icons menu-icon" id="menuIcon">menu</span>
+        <span class="menu-name" id="menuName">FRANCESCO SAJET</span><span class="menu-end">TI</span>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <h2></h2>
+        <h2 class="name-for-phone" style="font-size: 1em;">FRANCESCO SAJETTI</h2>
+        <p class="bio">I'm a 20yo Junior photographer, studying mechanical engineering and managing one of the top italian esports teams in simracing. </p>         
+
+        <h4 style="margin-bottom: 10px;"><em>My Gear for the track</em></h4>
+        <label>Canon R7</label><br>
+        <label>Canon RF 18-150 f3.5-5.6</label><br>
+        <label>Canon RF 100-400 f4.5-5.6</label ><br>
+
+        <h4 style="margin-bottom: 10px;"><em>Contacts</em></h4>
+        <label >francescosajetti@gmail.com</label>
+        <a href="tel:+123456789">Phone: +393245911999</a>
+        <a href="https://www.instagram.com/francesco_sajetti?igsh=MXBkOTU4Zjd4ZHoxcQ==" target="_blank">Instagram</a>
+        <a href="https://discord.gg/tjsm45JMWm" target="_blank">Discord</a>
+    </div>
+
+    <!-- Main content -->
+    <div class="image-container">
+        <img src="S (1).jpg" alt="Main Image">
+    </div>
+
+    <div class="three-images">
+        <img src="S (12).jpg" alt="Image 2">
+        <img src="S (6).jpg" alt="Image 2">
+        <img src="S (7).jpg" alt="Image 3">
+    </div>
+
+    <div class="split-images">
+        <img src="S (2).jpg" alt="Split Image 1">
+        <img src="S (23).jpg" alt="Split Image 2">
+    </div>
+
+    <div class="image-container">
+        <img src="S (4).jpg" alt="Main Image">
+    </div>
+
+
+    <script>
+        const menuContainer = document.getElementById('menuContainer');
+        const sidebar = document.getElementById('sidebar');
+        const menuName = document.getElementById('menuName');
+        const menuEnd = document.getElementsByClassName('menu-end')[0];
+        let isNameToggled = false;
+
+        const toggleSidebar = () => {
+            sidebar.classList.toggle('open');
+            isNameToggled = !isNameToggled;
+            menuName.textContent = isNameToggled ? "PHOTOGRAPHY" : "FRANCESCO SAJET";
+            menuEnd.textContent = isNameToggled ? "" : "TI";
+        };
+
+        // Make the entire menu container clickable
+        menuContainer.addEventListener('click', (event) => {
+            event.stopPropagation();
+            toggleSidebar();
+        });
+
+        // Close sidebar when clicking anywhere else on the page
+        document.addEventListener('click', (event) => {
+            if (sidebar.classList.contains('open') && !sidebar.contains(event.target)) {
+                toggleSidebar();
+            }
+        });
+
+        // Prevent clicks inside the sidebar from closing it
+        sidebar.addEventListener('click', (event) => {
+            event.stopPropagation();
+        });
+    </script>
+</body>
+</html>
